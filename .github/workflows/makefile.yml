@@ -3,29 +3,39 @@ on:
     branches:
       - main
 
-name: Build My Apps
+name: Build and Release APK
 
 jobs:
   build:
-    name: Build and Release new apk
+    name: Build and Release new APK
     runs-on: ubuntu-latest
+
     steps:
+      # Step 1: Checkout the code
       - uses: actions/checkout@v3
+
+      # Step 2: Set up Java for Gradle
       - uses: actions/setup-java@v2
         with:
           distribution: 'zulu'
           java-version: '17'
 
+      # Step 3: Set up Flutter
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
+      
+      # Step 4: Fetch dependencies
       - run: flutter pub get
-      - run: flutter build apk --release 
 
-      - name: Push to Releases
+      # Step 5: Build the APK
+      - run: flutter build apk --release
+
+      # Step 6: Create a release and upload the APK
+      - name: Push to GitHub Releases
         uses: ncipollo/release-action@v1
         with:
-         
-          path: build/app/outputs/flutter-apk/app-release.apk
-          tag: v0.0.1
-          token: ${{ secrets.TOKEN }}
+          token: ${{ secrets.TOKEN }}  # Use GitHub's built-in token or a PAT stored in secrets
+          tag: v0.0.1  # You can make this dynamic using a versioning strategy
+          release_name: Release v0.0.1  # You can make this dynamic as well
+          files: build/app/outputs/flutter-apk/app-release.apk  # APK path
