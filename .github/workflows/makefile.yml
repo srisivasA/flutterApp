@@ -29,7 +29,8 @@ jobs:
       - run: flutter pub get
 
       # Step 5: Build the APK
-      - run: flutter build apk --release
+      - run: flutter build apk --release --stacktrace
+
 
       # Step 6: Create a release and upload the APK
       - name: Push to GitHub Releases
