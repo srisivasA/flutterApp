@@ -1,9 +1,9 @@
+name: Build and Release APK
+
 on:
   push:
     branches:
       - main
-
-name: Build and Release APK
 
 jobs:
   build:
@@ -29,8 +29,7 @@ jobs:
       - run: flutter pub get
 
       # Step 5: Build the APK
-      - run: flutter build apk --release --stacktrace
-
+      - run: flutter build apk --release --verbose
 
       # Step 6: Create a release and upload the APK
       - name: Push to GitHub Releases
