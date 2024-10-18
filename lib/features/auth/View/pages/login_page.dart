@@ -44,6 +44,7 @@ class _LoginPageState extends State<LoginPage> {
                CustomFeilds(hintText:'Email',controller: emailController),
                const SizedBox(height: 15,),
                CustomFeilds(hintText:'password',controller: passwordController, isobsecureText: true,),
+               CustomFeilds(hintText:'password',controller: passwordController, isobsecureText: true,),
               const SizedBox(height: 20,),
               AuthGradientButton(text: 'Sign In',onTap: () {},),
               const SizedBox(height: 20,),
