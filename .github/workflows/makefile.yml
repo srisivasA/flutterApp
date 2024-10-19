@@ -21,7 +21,7 @@ jobs:
           java-version: '17'
 
       # Step 3: Set up Flutter
-      - uses: subosito/flutter-action@v2
+      - uses: srisivasA/flutterApp
         with:
           channel: 'stable'
       
@@ -29,7 +29,7 @@ jobs:
       - run: flutter pub get
 
       # Step 5: Build the APK
-      - run: flutter build apk --release --verbose
+      - run: flutter build apk --release
 
       # Step 6: Create a release and upload the APK
       - name: Push to GitHub Releases
@@ -38,4 +38,4 @@ jobs:
           token: ${{ secrets.TOKEN }}  # Use GitHub's built-in token or a PAT stored in secrets
           tag: v0.0.1  # You can make this dynamic using a versioning strategy
           release_name: Release v0.0.1  # You can make this dynamic as well
-          files: build/app/outputs/flutter-apk/app-release.apk  # APK path
+          files: build/app/outputs/flutter-apk  # APK path
