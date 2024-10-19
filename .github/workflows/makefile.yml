@@ -26,6 +26,6 @@ jobs:
       
       - run: flutter clean  # Clean the build directory
 
-      - run: flutter build apk --release    # Use --verbose for detailed logs
+      - run: flutter build apk --release   # Use --verbose for detailed logs
 
 
