@@ -16,27 +16,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout the repository
       - uses: actions/checkout@v4
 
-      # Step 2: Set up Flutter
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
 
-      # Step 3: Fetch dependencies
       - run: flutter pub get
+      
+      - run: flutter clean  # Clean the build directory
 
-      # Step 4: Build APK
-      - run: flutter build apk --release
+      - run: flutter build apk --release --stacktrace
 
-      # Step 5: Output APK path
-      - name: Display APK path
-        run:  build/app/outputs/flutter-apk/app-release.apk"
-
-      # Step 6: (Optional) Upload APK as an artifact
-      - name: Upload APK
-        uses: actions/upload-artifact@v3
-        with:
-          name: app-release-apk
-          path: build/app/outputs/flutter-apk/app-release.apk
