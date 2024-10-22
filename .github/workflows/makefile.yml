@@ -13,19 +13,38 @@ on:
 
 jobs:
   build:
+    name: Create Release
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-      - uses: subosito/flutter-action@v2
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
 
-      - run: flutter pub get
+      - name: Flutter Pub Get
+        run: flutter pub get
       
-      - run: flutter clean  # Clean the build directory
+      - name: Clean Flutter build
+        run: flutter clean
 
-      - run: flutter build apk --release  # Use --verbose for detailed logs
+      - name: Build APK
+        run: flutter build apk --release
 
-
+      - name: Create GitHub Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Correct GitHub token variable
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          body: |
+            Changes in this Release
+            - First Change
+            - Second Change
+          draft: false
+          prerelease: false
