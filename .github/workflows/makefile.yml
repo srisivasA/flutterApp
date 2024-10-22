@@ -18,7 +18,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4  # Updated to the latest version
 
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
@@ -36,9 +36,9 @@ jobs:
 
       - name: Create GitHub Release
         id: create_release
-        uses: actions/create-release@v1
+        uses: actions/create-release@v1.1.4  # Updated to the latest version
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Correct GitHub token variable
+          GITHUB_TOKEN: ${{ secrets.GITHUB }}
         with:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
